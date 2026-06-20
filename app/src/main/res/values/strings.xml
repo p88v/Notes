@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="write_text">Write text:</string>
+    <string name="cotnent_descr">Картинка содержит иконку отправки сообщения</string>
+    <string name="write_title">Write title:</string>
+    <string name="_note">Write text:</string>
+</resources>

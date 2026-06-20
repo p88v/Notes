@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/noteFeedFragment">
+
+    <fragment
+        android:id="@+id/noteFeedFragment"
+        android:name="com.example.notes.fragment.NoteFeedFragment"
+        android:label="note_feed_fragment"
+        tools:layout="@layout/note_feed_fragment" >
+        <action
+            android:id="@+id/action_noteFeedFragment_to_editNoteFragment"
+            app:destination="@id/editNoteFragment" />
+        <action
+            android:id="@+id/action_noteFeedFragment_to_createNoteFragment"
+            app:destination="@id/createNoteFragment" />
+        <action
+            android:id="@+id/action_noteFeedFragment_to_detailNnoteFragment"
+            app:destination="@id/detailNnoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editNoteFragment"
+        android:name="com.example.notes.fragment.EditNoteFragment"
+        android:label="fragment_edit_note"
+        tools:layout="@layout/fragment_edit_note" />
+    <fragment
+        android:id="@+id/createNoteFragment"
+        android:name="com.example.notes.fragment.CreateNoteFragment"
+        android:label="fragment_create_note"
+        tools:layout="@layout/fragment_create_note" />
+    <fragment
+        android:id="@+id/detailNnoteFragment"
+        android:name="com.example.notes.fragment.DetailNnoteFragment"
+        android:label="fragment_detail_nnote"
+        tools:layout="@layout/fragment_detail_nnote" >
+        <action
+            android:id="@+id/action_detailNnoteFragment_to_editNoteFragment"
+            app:destination="@id/editNoteFragment" />
+    </fragment>
+</navigation>
