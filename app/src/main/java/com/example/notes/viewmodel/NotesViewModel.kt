@@ -2,15 +2,18 @@ package com.example.notes.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.example.notes.entity.Note
+import com.example.notes.dao.NoteDao
+import com.example.notes.db.AppDb
+import com.example.notes.dto.Note
 import com.example.notes.repository.RepositoryNotes
 import com.example.notes.repository.RepositoryNotesImpl
 
 class NotesViewModel(application: Application): AndroidViewModel(application) {
 
+    private val dao = AppDb.getInstance(application).noteDao()
 
 
-    private val repository: RepositoryNotes = RepositoryNotesImpl(application)
+    private val repository: RepositoryNotes = RepositoryNotesImpl(dao)
 
 
     val data = repository.getAll()

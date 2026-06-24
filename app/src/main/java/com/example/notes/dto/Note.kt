@@ -1,4 +1,4 @@
-package com.example.notes.entity
+package com.example.notes.dto
 
 data class Note(
     val id: Long,

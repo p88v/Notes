@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.R
 import com.example.notes.databinding.NoteCardBinding
-import com.example.notes.entity.Note
+import com.example.notes.dto.Note
 
 
 interface NotesListner {

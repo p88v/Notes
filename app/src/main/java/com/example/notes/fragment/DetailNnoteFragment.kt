@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.notes.adapter.NotesAdapter
 import com.example.notes.adapter.NotesListner
 import com.example.notes.databinding.FragmentDetailNnoteBinding
-import com.example.notes.entity.Note
+import com.example.notes.dto.Note
 import com.example.notes.fragment.NoteFeedFragment.Companion.longArg
 import com.example.notes.viewmodel.NotesViewModel
 import kotlin.getValue

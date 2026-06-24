@@ -11,7 +11,7 @@ import com.example.notes.R
 import com.example.notes.adapter.NotesAdapter
 import com.example.notes.adapter.NotesListner
 import com.example.notes.databinding.NoteFeedFragmentBinding
-import com.example.notes.entity.Note
+import com.example.notes.dto.Note
 import com.example.notes.utils.LongArg
 import com.example.notes.viewmodel.NotesViewModel
 
