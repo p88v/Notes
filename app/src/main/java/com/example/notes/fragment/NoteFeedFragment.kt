@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.notes.R
 import com.example.notes.adapter.NotesAdapter
@@ -14,6 +17,7 @@ import com.example.notes.databinding.NoteFeedFragmentBinding
 import com.example.notes.dto.Note
 import com.example.notes.utils.LongArg
 import com.example.notes.viewmodel.NotesViewModel
+import kotlinx.coroutines.launch
 
 class NoteFeedFragment : Fragment() {
 
@@ -58,8 +62,12 @@ class NoteFeedFragment : Fragment() {
 
         binding.recyclerViewAllNotes.adapter = adapter
 
-        viewModel.data.observe(viewLifecycleOwner){ note ->
-            adapter.submitList(note)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.data.collect { notes ->
+                    adapter.submitList(notes)
+                }
+            }
         }
 
 

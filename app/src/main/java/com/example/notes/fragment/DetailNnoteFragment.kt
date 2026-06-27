@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.notes.adapter.NotesAdapter
 import com.example.notes.adapter.NotesListner
@@ -14,6 +17,7 @@ import com.example.notes.databinding.FragmentDetailNnoteBinding
 import com.example.notes.dto.Note
 import com.example.notes.fragment.NoteFeedFragment.Companion.longArg
 import com.example.notes.viewmodel.NotesViewModel
+import kotlinx.coroutines.launch
 import kotlin.getValue
 
 
@@ -55,8 +59,12 @@ class DetailNnoteFragment : Fragment() {
 
         binding.listOfOneNote.adapter = adapter
 
-        viewModel.data.observe(viewLifecycleOwner){
-            adapter.submitList(post_detail)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.data.collect {
+                    adapter.submitList(post_detail)
+                }
+            }
         }
 
 

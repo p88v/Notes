@@ -1,27 +1,26 @@
 package com.example.notes.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.notes.dto.Note
 import com.example.notes.entity.NoteEntity
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
 interface NoteDao {
 
     @Query("SELECT * FROM notes ORDER BY isPinned DESC, id DESC")
-    fun getAll(): LiveData<List<NoteEntity>>
+    fun getAll(): Flow<List<NoteEntity>>
 
 
     @Insert
-    fun insert(noteEntity: NoteEntity)
+    suspend fun insert(noteEntity: NoteEntity)
 
     @Query("UPDATE notes SET title=:title WHERE id = :noteEntityId ")
-    fun updById(noteEntityId: Long, title: String)
+    suspend fun updById(noteEntityId: Long, title: String)
 
-    fun saveNote(noteEntity: NoteEntity){
+    suspend fun saveNote(noteEntity: NoteEntity){
         if(noteEntity.id == 0L){
             insert(noteEntity)
         }else updById(noteEntity.id, noteEntity.title)
@@ -29,7 +28,7 @@ interface NoteDao {
 
 
     @Query("DELETE FROM notes WHERE id = :noteId")
-    fun removeById(noteId: Long)
+    suspend fun removeById(noteId: Long)
 
 
     @Query("""
@@ -37,6 +36,6 @@ interface NoteDao {
         isPinned = CASE WHEN isPinned THEN 0 ELSE 1 END
         WHERE id = :noteId
     """)
-    fun pinById(noteId: Long)
+    suspend fun pinById(noteId: Long)
 
 }

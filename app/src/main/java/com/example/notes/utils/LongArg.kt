@@ -9,7 +9,7 @@ object LongArg: ReadWriteProperty<Bundle, Long?> {
     override fun getValue(
         thisRef: Bundle,
         property: KProperty<*>
-    ): Long? {
+    ): Long {
         return thisRef.getLong(property.name)
     }
 

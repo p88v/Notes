@@ -9,6 +9,8 @@ import com.example.notes.dto.Note
 import com.example.notes.entity.NoteEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class RepositoryNotesImpl(private val dao: NoteDao): RepositoryNotes {
 
@@ -20,7 +22,7 @@ class RepositoryNotesImpl(private val dao: NoteDao): RepositoryNotes {
 
 
 
-    override fun getAll(): LiveData<List<Note>>{
+    override fun getAll(): Flow<List<Note>>{
         return dao.getAll().map { entities ->
             entities.map { entity ->
                 entity.toDto()
@@ -28,15 +30,15 @@ class RepositoryNotesImpl(private val dao: NoteDao): RepositoryNotes {
         }
     }
 
-    override fun saveNote(note: Note) {
+    override suspend fun saveNote(note: Note) {
         dao.saveNote(NoteEntity.fromDto(note))
     }
 
-    override fun removeById(noteId: Long) {
+    override suspend fun removeById(noteId: Long) {
         dao.removeById(noteId)
     }
 
-    override fun pinById(noteId: Long) {
+    override suspend fun pinById(noteId: Long) {
         dao.pinById(noteId)
     }
 

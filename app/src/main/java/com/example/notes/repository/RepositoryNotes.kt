@@ -2,15 +2,16 @@ package com.example.notes.repository
 
 import androidx.lifecycle.LiveData
 import com.example.notes.dto.Note
+import kotlinx.coroutines.flow.Flow
 
 interface RepositoryNotes {
 
 
-    fun getAll(): LiveData<List<Note>>
+    fun getAll(): Flow<List<Note>>
 
-    fun saveNote(note: Note)
-    fun removeById(noteId: Long)
-    fun pinById(noteId: Long)
+    suspend fun saveNote(note: Note)
+    suspend fun removeById(noteId: Long)
+    suspend fun pinById(noteId: Long)
 
 
 }
