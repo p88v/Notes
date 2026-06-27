@@ -64,8 +64,8 @@ class NoteFeedFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.data.collect { notes ->
-                    adapter.submitList(notes)
+                viewModel.uiState.collect { uiState ->
+                    adapter.submitList(uiState.notes)
                 }
             }
         }

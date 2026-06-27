@@ -8,8 +8,11 @@ import com.example.notes.db.AppDb
 import com.example.notes.dto.Note
 import com.example.notes.repository.RepositoryNotes
 import com.example.notes.repository.RepositoryNotesImpl
+import com.example.notes.ui.NotesUiState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.WhileSubscribed
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -21,11 +24,22 @@ class NotesViewModel(application: Application): AndroidViewModel(application) {
     private val repository: RepositoryNotes = RepositoryNotesImpl(dao)
 
 
-    val data: StateFlow<List<Note>> = repository.getAll().stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList(),
+
+    val uiState: StateFlow<NotesUiState> = repository.getAll().map { notes ->
+        NotesUiState(
+            notes = notes,
+            empty = notes.isEmpty(),
+            loading = false,
+            erroe = null
+        )
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        NotesUiState(loading = true)
     )
+
+
+
 
     fun saveNote(id: Long = 0L, title: String, content: String, isPinned: Boolean = false){
         viewModelScope.launch {

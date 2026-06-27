@@ -32,7 +32,7 @@ class DetailNnoteFragment : Fragment() {
         val viewModel by viewModels<NotesViewModel>(ownerProducer = ::requireParentFragment)
 
         val postID = arguments?.longArg
-        val post_detail = viewModel.data.value?.filter { it.id == postID }
+//        val post_detail = viewModel.data.value?.filter { it.id == postID }
 
 
 
@@ -61,8 +61,8 @@ class DetailNnoteFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.data.collect {
-                    adapter.submitList(post_detail)
+                viewModel.uiState.collect {
+//                    adapter.submitList()
                 }
             }
         }
